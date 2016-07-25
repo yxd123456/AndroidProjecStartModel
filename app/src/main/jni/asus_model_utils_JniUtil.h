@@ -13,7 +13,10 @@ extern "C" {
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_asus_model_utils_JniUtil_getStringFromC
-  (JNIEnv *env, jclass);
+  (JNIEnv *env, jclass jc);
+
+JNIEXPORT jstring JNICALL Java_asus_model_utils_JniUtil_getStringFromC2
+        (JNIEnv *env, jclass jc);
 
 
 #ifdef __cplusplus

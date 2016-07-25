@@ -21,6 +21,7 @@ public class MainFragment extends BaseFragment {
     protected void onCreateView(View v) {
         ButterKnife.inject(this, v);
         tvHelloWorld.setText(JniUtil.getStringFromC());
+        //tvHelloWorld.setText(JniUtil.getStringFromC2());
     }
 
     @Override

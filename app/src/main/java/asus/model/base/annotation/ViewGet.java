@@ -1,4 +1,4 @@
-package asus.model.annotation;
+package asus.model.base.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

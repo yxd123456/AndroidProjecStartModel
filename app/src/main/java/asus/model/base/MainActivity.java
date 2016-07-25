@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import asus.model.R;
-import asus.model.annotation.ViewGet;
-import asus.model.annotation.ViewInject;
+import asus.model.base.annotation.ViewGet;
+import asus.model.base.annotation.ViewInject;
 import asus.model.fragment.MainFragment;
 
 /**

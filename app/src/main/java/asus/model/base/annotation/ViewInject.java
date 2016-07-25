@@ -1,4 +1,4 @@
-package asus.model.annotation;
+package asus.model.base.annotation;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;

@@ -1,0 +1,2 @@
+int id progressBar 0x7f030000
+int layout progress_bar 0x7f020000

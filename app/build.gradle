@@ -7,7 +7,7 @@ android {
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        applicationId "asus.exercise01"
+        applicationId "asus.model"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1

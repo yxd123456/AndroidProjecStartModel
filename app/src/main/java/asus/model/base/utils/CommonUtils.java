@@ -1,4 +1,4 @@
-package asus.model.base;
+package asus.model.base.utils;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.View;

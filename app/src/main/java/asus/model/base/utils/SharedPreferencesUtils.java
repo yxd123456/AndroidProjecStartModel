@@ -1,4 +1,4 @@
-package asus.model.base;
+package asus.model.base.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

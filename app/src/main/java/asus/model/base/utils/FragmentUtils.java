@@ -1,4 +1,4 @@
-package asus.model.base;
+package asus.model.base.utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import asus.model.base.context.MainActivity;
 
 /**
  * Created by asus on 2016/7/20.

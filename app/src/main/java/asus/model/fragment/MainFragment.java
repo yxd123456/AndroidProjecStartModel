@@ -4,9 +4,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import asus.model.R;
-import asus.model.base.BaseFragment;
+import asus.model.base.context.BaseFragment;
 import asus.model.utils.JniUtil;
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -19,7 +18,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void onCreateView(View v) {
-        ButterKnife.inject(this, v);
         tvHelloWorld.setText(JniUtil.getStringFromC());
         //tvHelloWorld.setText(JniUtil.getStringFromC2());
     }

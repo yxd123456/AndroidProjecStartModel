@@ -36,7 +36,7 @@ public class MainActivity extends AUtil {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.design_navigation_view);
         ViewInject.inject(this);
         fragmentUtils = new FragmentUtils(this, fragments, R.id.fragment_container);
     }

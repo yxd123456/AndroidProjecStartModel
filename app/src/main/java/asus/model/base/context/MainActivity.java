@@ -14,7 +14,6 @@ import asus.model.base.annotation.ViewGet;
 import asus.model.base.annotation.ViewInject;
 import asus.model.base.utils.FragmentUtils;
 import asus.model.fragment.MainFragment;
-import asus.model.fragment.TestFragment;
 
 /**
  * 托管所有Fragment的Activity，程序的入口
@@ -25,12 +24,11 @@ public class MainActivity extends AUtil {
     public static int BACKFLAG = 1;
 
     public MainFragment mf = new MainFragment();
-    public TestFragment tf = new TestFragment("Test");
     public FragmentUtils fragmentUtils;
     public DrawerLayout drawerLayout;
 
     //收藏所有Fragment的集合
-    public List<Fragment> fragments = Arrays.asList( mf, tf);
+    public List<Fragment> fragments = Arrays.asList(mf);
     @ViewGet(value = R.id.rg_bottom)
     public RadioGroup rgBottom;
 
@@ -46,9 +44,6 @@ public class MainActivity extends AUtil {
     //切换Fragment的RadioButton
     public void rb1(android.view.View v) {
         fragmentUtils.switchFragment(mf);
-    }
-    public void rb2(android.view.View v) {
-        fragmentUtils.switchFragment(tf);
     }
 
     @Override

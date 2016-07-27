@@ -51,4 +51,5 @@ dependencies {
     compile project(':CordovaLib')
     compile 'com.jakewharton:butterknife:5.1.1'
     compile 'com.android.support:design:24.1.1'
+    compile 'com.yuyh.easyadapter:library:1.0.0'
 }

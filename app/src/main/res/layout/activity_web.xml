@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="asus.model.base.WebActivity">
+    tools:context=".base.context.WebActivity">
 
     <org.apache.cordova.engine.SystemWebView
         android:id="@+id/cordovaWebView"

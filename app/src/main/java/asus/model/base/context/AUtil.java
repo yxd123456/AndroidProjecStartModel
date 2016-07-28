@@ -18,6 +18,8 @@ import asus.model.base.design.SnackBarUtil;
 import asus.model.base.design.TabLayoutUtil;
 import asus.model.base.design.TextInputUtil;
 import asus.model.base.observer.ActivitySubject;
+import asus.model.base.thread.BundleUtil;
+import asus.model.base.thread.IntentUtil;
 
 /**
  * Created by asus on 2016/7/21.
@@ -56,6 +58,18 @@ public abstract class AUtil extends ActivitySubject{
     public static TabLayoutUtil tabLayout(TabLayout tl, int vpId){
         TabLayoutUtil util = new TabLayoutUtil(tl, vpId);
         return util;
+    }
+
+    public BundleUtil bundle(){
+        return new BundleUtil();
+    }
+
+    public IntentUtil intent(Class aClass){
+        return new IntentUtil(this, aClass);
+    }
+
+    public IntentUtil intent(Context context, Class aClass){
+        return new IntentUtil(context, aClass);
     }
 
 }

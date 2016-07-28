@@ -19,6 +19,15 @@ public class RxJava {
         return message;
     }
 
+    public static void thread(){
+        RxJava.thread(msg -> {
+
+        }, sub -> {
+
+        });
+    }
+
+
     public static <T extends Object> Message getMsg(T t, int what){
         Message message = Message.obtain();
         message.obj = t;
@@ -73,6 +82,36 @@ public class RxJava {
             }
         });
     }
+
+    private static Observable observable;
+    private static RxJava rxJava;
+
+    public static RxJava sub(NewThread newThread){
+        if(rxJava == null){
+            rxJava = new RxJava();
+        }
+        observable = Observable.create(new Observable.OnSubscribe<Message>() {
+            @Override
+            public void call(Subscriber<? super Message> subscriber) {
+                newThread.inNewThread(subscriber);
+            }
+        }).subscribeOn(Schedulers.newThread());
+        return rxJava;
+    }
+
+    public RxJava main(MainThread mainThread){
+        if(observable == null) return null;
+        observable.observeOn(
+                AndroidSchedulers.mainThread()
+        ).subscribe(new Action1<Message>() {
+            @Override
+            public void call(Message msg) {
+                mainThread.inMainThread(msg);
+            }
+        });
+        return rxJava;
+    }
+
 
     public  interface MainThread{
         void inMainThread(Message msg);

@@ -18,6 +18,10 @@ public class MessageUtil {
         return this;
     }
 
+    public String str(){
+        return (String) message.obj;
+    }
+
     public MessageUtil what(int what){
         message.what = what;
         return this;
@@ -26,6 +30,5 @@ public class MessageUtil {
     public Message end(){
         return message;
     }
-
 
 }

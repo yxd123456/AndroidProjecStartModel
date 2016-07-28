@@ -17,6 +17,7 @@ import asus.model.R;
 import asus.model.base.adapter.LayoutManagerUtil;
 import asus.model.base.adapter.RecyclerViewUtil;
 import asus.model.base.adapter.RefreshUtil;
+import asus.model.base.thread.BundleUtil;
 import butterknife.ButterKnife;
 
 /**
@@ -31,12 +32,12 @@ public abstract class BaseFragment extends FUtil {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(getLayoutId(), container, false);
-        view = v;
-        ButterKnife.inject(this, v);
+        View view = inflater.inflate(getLayoutId(), container, false);
+        this.view = view;
+        ButterKnife.inject(this, view);
         activity = (MainActivity) getActivity();
-        onCreateView(v);
-        return v;
+        onCreateView(view);
+        return view;
     }
 
     @Override
@@ -99,4 +100,6 @@ public abstract class BaseFragment extends FUtil {
     public static <T> void testNull(T t){
         Log.d(NULL, "空指针测试："+(t == null));
     }
+
+
 }

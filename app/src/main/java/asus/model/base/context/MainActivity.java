@@ -1,6 +1,7 @@
 package asus.model.base.context;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Window;
@@ -12,8 +13,10 @@ import java.util.List;
 import asus.model.R;
 import asus.model.base.annotation.ViewGet;
 import asus.model.base.annotation.ViewInject;
+import asus.model.base.thread.RxJava;
 import asus.model.base.utils.FragmentUtils;
 import asus.model.fragment.MainFragment;
+import rx.Subscriber;
 
 /**
  * 托管所有Fragment的Activity，程序的入口
@@ -43,7 +46,9 @@ public class MainActivity extends AUtil {
 
     //切换Fragment的RadioButton
     public void rb1(android.view.View v) {
-        fragmentUtils.switchFragment(mf);
+
+        //fragmentUtils.switchFragment(mf);
+        startActivity(intent(WebActivity.class).put("msg","Hello").end());
     }
 
     @Override
@@ -60,6 +65,5 @@ public class MainActivity extends AUtil {
 
     @Override
     public void update() {
-
     }
 }

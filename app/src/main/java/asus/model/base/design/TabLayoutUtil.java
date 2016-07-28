@@ -22,6 +22,7 @@ import asus.model.base.adapter.ModelPagerAdapter;
                 new TestFragment("Hello15"),
                 new TestFragment("Hello16")
         );
+
         TabLayoutUtil util = new TabLayoutUtil(tl, R.id.vp).setMode(TabLayoutUtil.SCROLLABLE)
                 .baseSet(Color.GRAY, Color.parseColor("#ff0000"), Color.BLUE, 10);
         //第一种方式

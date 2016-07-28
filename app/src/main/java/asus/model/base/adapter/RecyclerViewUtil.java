@@ -28,18 +28,88 @@ public class RecyclerViewUtil extends FUtil {
 
 
     private EasyRVAdapter adapter;
-    private RecyclerViewUtil util;
+    private Context context;
+    private RecyclerView rv;
 
-
-    public RecyclerViewUtil(){
-
+    public RecyclerViewUtil(Context ctx, RecyclerView recyclerView){
+        context = ctx;
+        rv = recyclerView;
     }
 
-    public static RecyclerViewUtil getUtil(){
-        return new RecyclerViewUtil();
+    public RecyclerViewUtil manager(){
+        rv.setLayoutManager(new LinearLayoutManager(context));
+        return this;
     }
 
+    public RecyclerViewUtil manager(RecyclerView.LayoutManager manager){
+        if(manager == null){
+            rv.setLayoutManager(new LinearLayoutManager(context));
+        }else {
+            rv.setLayoutManager(manager);
+        }
+        return this;
+    }
 
+    public RecyclerViewUtil animator() {
+        rv.setItemAnimator(new DefaultItemAnimator());
+        return this;
+    }
+
+    public RecyclerViewUtil animator(RecyclerView.ItemAnimator animator){
+        if(animator==null){
+            rv.setItemAnimator(new DefaultItemAnimator());
+        }else {
+            rv.setItemAnimator(animator);
+        }
+        return this;
+    }
+
+    public RecyclerViewUtil decorate(){
+        rv.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
+        return this;
+    }
+
+    public RecyclerViewUtil decorate(RecyclerView.ItemDecoration decoration){
+        if(decoration == null){
+            rv.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
+        }else {
+            rv.addItemDecoration(decoration);
+        }
+        return this;
+    }
+
+    public RecyclerViewUtil fixed(boolean b){
+        rv.setHasFixedSize(b);
+        return this;
+    }
+
+    /**
+     *
+     * @param list 数据
+     * @param data
+     * @param cellView
+     * @param itemLayoutId
+     * @param <T>
+     * @return
+     */
+    public <T> AddMoreUtil setAdapter(List<T> list, onBindData data, SetMultiCellView cellView, int...itemLayoutId){
+        adapter = new EasyRVAdapter<T>(context, list, itemLayoutId) {
+            @Override
+            protected void onBindData(EasyRVHolder viewHolder, int position, T item) {
+                try{
+                    data.bind(viewHolder, position);
+                }catch (Exception e){
+
+                }
+            }
+            @Override
+            public int getLayoutIndex(int position, T item) {
+                return cellView.setMultiCellView(position);
+            }
+        };
+        rv.setAdapter(adapter);
+        return new AddMoreUtil(rv, list);
+    }
 
 
     /**
@@ -60,7 +130,11 @@ public class RecyclerViewUtil extends FUtil {
         adapter = new EasyRVAdapter<T>(context, list, cellLayoutId) {
             @Override
             protected void onBindData(EasyRVHolder viewHolder, int position, T item) {
-                data.bind(viewHolder, position);
+                try{
+                    data.bind(viewHolder, position);
+                }catch (Exception e){
+
+                }
             }
 
             @Override
@@ -71,29 +145,10 @@ public class RecyclerViewUtil extends FUtil {
         rv.setAdapter(adapter);
     }
 
-
-
-    /**
-     * 使用自定义的分割线来产生纵向列表
-     */
-    public  <T> void initRV(Context context, RecyclerView rv, List<T> list, RecyclerView.ItemDecoration decoration, onBindData data, int...cellLayoutId){
-        rv.setLayoutManager(new LinearLayoutManager(context));
-        rv.setItemAnimator(new DefaultItemAnimator());
-        rv.addItemDecoration(decoration);
-        rv.setHasFixedSize(true);
-        adapter = new EasyRVAdapter<T>(context, list, cellLayoutId) {
-            @Override
-            protected void onBindData(EasyRVHolder viewHolder, int position, T item) {
-                data.bind(viewHolder, position);
-            }
-        };
-        rv.setAdapter(adapter);
-    }
-
     /**
      * 使用自定义的分割线来产生自定义的列表
      */
-    public  <T, M extends RecyclerView.LayoutManager> void initRV(Context context, RecyclerView rv, List<T> list, RecyclerView.ItemDecoration decoration, M manager, onBindData data, int...cellLayoutId){
+    public  <T, M extends RecyclerView.LayoutManager> void initRV(Context context, RecyclerView rv, List<T> list, onBindData data, SetMultiCellView cellView, RecyclerView.ItemDecoration decoration, M manager, int...cellLayoutId){
         rv.setLayoutManager(manager);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.addItemDecoration(decoration);
@@ -101,7 +156,15 @@ public class RecyclerViewUtil extends FUtil {
         adapter = new EasyRVAdapter<T>(context, list, cellLayoutId) {
             @Override
             protected void onBindData(EasyRVHolder viewHolder, int position, T item) {
-                data.bind(viewHolder, position);
+                try{
+                    data.bind(viewHolder, position);
+                }catch (Exception e){
+
+                }
+            }
+            @Override
+            public int getLayoutIndex(int position, T item) {
+                return cellView.setMultiCellView(position);
             }
         };
         rv.setAdapter(adapter);
@@ -111,10 +174,6 @@ public class RecyclerViewUtil extends FUtil {
         return adapter;
     }
 
-    @Override
-    public void update() {
-
-    }
 
     public interface onBindData{
         void bind(EasyRVHolder holder, int pos);

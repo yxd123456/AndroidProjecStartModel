@@ -41,3 +41,29 @@
             });
         });
     }
+
+
+
+    getViewUtil(rv).manager(LayoutManagerUtil.get2(activity, 2).end2())
+                    .animator()
+                    .decorate(new DividerItemDecoration(activity, GridLayoutManager.VERTICAL))
+                    .fixed(true)
+                    .setAdapter(list, (holder, pos) -> {
+                        holder.setText(R.id.tv_cell, list.get(pos).getTitle());
+                        holder.setImageResource(R.id.iv_cell, list.get(pos).getImg());
+                        holder.setOnClickListener(R.id.tv_cell, view->view.setBackgroundResource(R.drawable.item_select));
+                    }, position -> 0, R.layout.recyclerview_cell, R.layout.image)
+            .addMoreList(msg -> {
+                list.addAll((List)msg.obj);
+                rv.getAdapter().notifyDataSetChanged();
+            }, sub -> {
+                sleep(1000);
+                sub.onNext(msg(quickList(10, i -> {
+                    try {
+                        return new MyItem().clone().setTitle("NEW_ITEM" + i);
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })));
+            });

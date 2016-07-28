@@ -50,11 +50,11 @@ public class LayoutManagerUtil {
         return util;
     }
 
-    public LinearLayoutManager manager1(){
+    public LinearLayoutManager end1(){
         return manager1;
     }
 
-    public GridLayoutManager manager2(){
+    public GridLayoutManager end2(){
         return manager2;
     }
 

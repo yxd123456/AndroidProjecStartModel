@@ -71,20 +71,16 @@ public abstract class BaseFragment extends FUtil {
 
     protected  <T> AddMoreUtil adapter(RecyclerView rv, List<T> list, RecyclerViewUtil.onBindData data,
                                                         RecyclerViewUtil.SetMultiCellView cellView, int...cell){
-        RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil();
+        RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil(activity, rv);
         recyclerViewUtil.initRV(getActivity(), rv, list, data, cellView, cell);
         return new AddMoreUtil(rv, list);
     }
 
-    protected  <T, M extends RecyclerView.LayoutManager> EasyRVAdapter adapter(RecyclerView rv, List<T> list, RecyclerView.ItemDecoration decoration, M manager, RecyclerViewUtil.onBindData data, int...cellLayoutId){
-        RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil();
-        recyclerViewUtil.initRV(getActivity(), rv, list, decoration, manager, data, cellLayoutId);
-
-
-
-
-        return recyclerViewUtil.getAdapter();
+    public RecyclerViewUtil getViewUtil(RecyclerView rv){
+        return new RecyclerViewUtil(activity, rv);
     }
+
+
 
     public static <T> void log1(T t){
         if(t instanceof String){

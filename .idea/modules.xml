@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/CordovaLib/CordovaLib.iml" filepath="$PROJECT_DIR$/CordovaLib/CordovaLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise01.iml" filepath="$PROJECT_DIR$/Exercise01.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easy_adapter/easy_adapter.iml" filepath="$PROJECT_DIR$/easy_adapter/easy_adapter.iml" />
     </modules>
   </component>
 </project>

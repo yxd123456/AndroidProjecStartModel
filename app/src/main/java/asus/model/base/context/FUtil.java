@@ -47,6 +47,22 @@ public abstract class FUtil extends FragmentSubject{
         return list;
     }
 
+    public <T> List<T> list(T...ts){
+        return Arrays.asList(ts);
+    }
+
+    public <T> List<T> quickList(int num, SetT s){
+        List<T> list = new ArrayList<>(num);
+        for (int i = 0; i < num; i++) {
+            list.add((T) s.set(i+1));
+        }
+        return list;
+    }
+
+    public interface SetT<T>{
+        T set(int i);
+    }
+
     public static <T extends View> void invertVisible(T t){
         if(t.getVisibility()==View.GONE){
             t.setVisibility(View.VISIBLE);

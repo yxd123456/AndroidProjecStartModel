@@ -1,1 +1,1 @@
-include ':app', ':CordovaLib'
+include ':app', ':CordovaLib', ':easy_adapter'

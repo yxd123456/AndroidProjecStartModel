@@ -5,13 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_hello_world"
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello World"
-        android:textSize="25sp"
-        android:gravity="center"/>
+        android:id="@+id/rv"/>
 
 
 

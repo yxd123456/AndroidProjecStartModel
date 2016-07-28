@@ -13,6 +13,16 @@ import rx.schedulers.Schedulers;
  */
 public class RxJava {
 
+    private static Observable observable;
+    private static RxJava rxJava;
+
+    public static RxJava get(){
+        if(rxJava == null){
+            rxJava = new RxJava();
+        }
+        return rxJava;
+    }
+
     public static <T extends Object> Message getMsg(T t){
         Message message = Message.obtain();
         message.obj = t;
@@ -83,13 +93,11 @@ public class RxJava {
         });
     }
 
-    private static Observable observable;
-    private static RxJava rxJava;
+
+
+
 
     public static RxJava sub(NewThread newThread){
-        if(rxJava == null){
-            rxJava = new RxJava();
-        }
         observable = Observable.create(new Observable.OnSubscribe<Message>() {
             @Override
             public void call(Subscriber<? super Message> subscriber) {

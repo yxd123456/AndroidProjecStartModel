@@ -3,10 +3,12 @@ package asus.model.base.context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,6 +31,22 @@ public abstract class FUtil extends FragmentSubject{
         return arr;
     }
 
+    public String[] strs(String...arr){
+        return arr;
+    }
+
+    public List<String> strList(String...arr){
+        return Arrays.asList(arr);
+    }
+
+    public List<String> strList(int num, String str){
+        List<String> list = new ArrayList<>(num);
+        for (int i = 0; i < num; i++) {
+            list.add(str+(i+1));
+        }
+        return list;
+    }
+
     public static <T extends View> void invertVisible(T t){
         if(t.getVisibility()==View.GONE){
             t.setVisibility(View.VISIBLE);
@@ -39,6 +57,11 @@ public abstract class FUtil extends FragmentSubject{
 
     public String txt(TextView tv){
         return tv.getText().toString();
+    }
+
+    public View inflate(int id){
+        View v = LayoutInflater.from(getActivity()).inflate(id, null);
+        return v;
     }
 
     public void txt(TextView tv, String string){

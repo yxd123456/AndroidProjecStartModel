@@ -1,20 +1,25 @@
 package asus.model.base.adapter;
 
 import android.content.Context;
+import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
 import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import asus.model.R;
 import asus.model.base.context.AUtil;
 import asus.model.base.context.BaseFragment;
 import asus.model.base.context.FUtil;
+import asus.model.base.thread.RxJava;
+import rx.Subscriber;
 
 /**
  * Created by asus on 2016/7/26.
@@ -23,17 +28,19 @@ public class RecyclerViewUtil extends FUtil {
 
 
     private EasyRVAdapter adapter;
+    private RecyclerViewUtil util;
+
 
     public RecyclerViewUtil(){
 
     }
 
-    private RecyclerViewUtil util;
-
-
     public static RecyclerViewUtil getUtil(){
         return new RecyclerViewUtil();
     }
+
+
+
 
     /**
      * 使用默认的分割线来产生纵向列表
@@ -44,7 +51,8 @@ public class RecyclerViewUtil extends FUtil {
      * @param data 接口实现数据捆绑
      * @param <T>
      */
-    public  <T> void initRV(Context context, RecyclerView rv, List<T> list, int cellLayoutId, onBindData data){
+    public  <T> void initRV(Context context, RecyclerView rv, List<T> list, onBindData data, SetMultiCellView cellView, int...cellLayoutId
+                            ){
         rv.setLayoutManager(new LinearLayoutManager(context));
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
@@ -54,14 +62,21 @@ public class RecyclerViewUtil extends FUtil {
             protected void onBindData(EasyRVHolder viewHolder, int position, T item) {
                 data.bind(viewHolder, position);
             }
+
+            @Override
+            public int getLayoutIndex(int position, T item) {
+                return cellView.setMultiCellView(position);
+            }
         };
         rv.setAdapter(adapter);
     }
 
+
+
     /**
      * 使用自定义的分割线来产生纵向列表
      */
-    public  <T> void initRV(Context context, RecyclerView rv, List<T> list, int cellLayoutId, RecyclerView.ItemDecoration decoration, onBindData data){
+    public  <T> void initRV(Context context, RecyclerView rv, List<T> list, RecyclerView.ItemDecoration decoration, onBindData data, int...cellLayoutId){
         rv.setLayoutManager(new LinearLayoutManager(context));
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.addItemDecoration(decoration);
@@ -78,7 +93,7 @@ public class RecyclerViewUtil extends FUtil {
     /**
      * 使用自定义的分割线来产生自定义的列表
      */
-    public  <T, M extends RecyclerView.LayoutManager> void initRV(Context context, RecyclerView rv, List<T> list, int cellLayoutId, RecyclerView.ItemDecoration decoration, M manager, onBindData data){
+    public  <T, M extends RecyclerView.LayoutManager> void initRV(Context context, RecyclerView rv, List<T> list, RecyclerView.ItemDecoration decoration, M manager, onBindData data, int...cellLayoutId){
         rv.setLayoutManager(manager);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.addItemDecoration(decoration);
@@ -103,6 +118,11 @@ public class RecyclerViewUtil extends FUtil {
 
     public interface onBindData{
         void bind(EasyRVHolder holder, int pos);
+
+    }
+
+    public interface SetMultiCellView{
+        int setMultiCellView(int position);
     }
 
 }

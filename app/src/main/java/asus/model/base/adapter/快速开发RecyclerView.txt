@@ -1,0 +1,43 @@
+    @InjectView(R.id.rv)
+    RecyclerView rv;
+    private List<String> list;
+
+    @Override
+    protected void onCreateView(View v) {
+
+        adapter(rv, //传入RecyclerView对象
+                list = strList(50, "item"),//传入数据
+                (holder, pos) -> {//设置每个列表项的显示内容
+            try{
+                holder.setText(R.id.tv_cell, list.get(pos));
+                holder.setOnClickListener(R.id.tv_cell, view -> view.setBackgroundResource(R.drawable.item_select));
+            }catch (Exception e){}
+        }, position -> AddMoreUtil.needShowFoot&&position==list.size()-1?1:0,//判断何时显示FooterView视图
+                R.layout.recyclerview_cell,//传入第一个列表项视图
+                R.layout.image)//传入第二个列表项视图，此处作为FooterView的视图
+        .enableAddMore( msg -> {//实现上拉加载
+            list.addAll((List)msg.obj);//添加新数据
+            rv.getAdapter().notifyDataSetChanged();//刷新列表
+        }, sub -> {
+            sleep(1000);//模拟耗时任务来获取新数据
+            sub.onNext(msg(strList(10, "NewItem")));//发送新数据
+        });
+
+        refresh(VIEWGROUP_MATCH, VIEWGROUP_WRAP, 0)//设置列表的宽高以及在传入其在根部局中的索引
+                .addView(rv, //传入需要实现下拉刷新的列表
+                        () -> {RxJava.thread(msg -> {//模拟耗时任务结束后的刷新操作
+                if (msg.what == 0x123) {
+                    toast("刷新了数据！");
+                    setRefresh(false);
+                    list.add("新加的Item");
+                    rv.getAdapter().notifyDataSetChanged();
+                    return;
+                }
+                toast((String) msg.obj);
+            }, sub -> {//模拟耗时操作
+                sub.onNext(msg("正在刷新中"));
+                sleep(1000);
+                sub.onNext(msgWhat(0x123));
+            });
+        });
+    }

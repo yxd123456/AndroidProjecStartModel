@@ -2,6 +2,7 @@ package asus.model.base.adapter;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -59,6 +60,14 @@ public class RefreshUtil extends BaseFragment{
     }
 
     public RefreshUtil addView(ListView listView, SwipeRefreshLayout.OnRefreshListener listener){
+        parent.removeView(listView);
+        refreshLayout.addView(listView);
+        refreshLayout.setOnRefreshListener(listener);
+        parent.addView(refreshLayout, params.getRefreshViewParams()[2]);
+        return this;
+    }
+
+    public RefreshUtil addView(RecyclerView listView, SwipeRefreshLayout.OnRefreshListener listener){
         parent.removeView(listView);
         refreshLayout.addView(listView);
         refreshLayout.setOnRefreshListener(listener);

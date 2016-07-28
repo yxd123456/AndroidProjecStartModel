@@ -14,6 +14,7 @@ import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
 import java.util.List;
 
 import asus.model.R;
+import asus.model.base.adapter.AddMoreUtil;
 import asus.model.base.adapter.LayoutManagerUtil;
 import asus.model.base.adapter.RecyclerViewUtil;
 import asus.model.base.adapter.RefreshUtil;
@@ -48,9 +49,16 @@ public abstract class BaseFragment extends FUtil {
 
     /**
      * 此方法仅限于需要刷新的列表是二级布局时使用，总之view应该是列表的直接父布局
+     * 参数1：设置列表的宽度
+     * 参数2：设置列表的高度
+     * 参数3：设置列表在根布局中的索引
      */
-    public RefreshUtil getRefreshUtil(RefreshUtil.getViewParams params){
-        return new RefreshUtil(getActivity(), view, params);
+    public RefreshUtil refresh(int...params){
+        return new RefreshUtil(getActivity(), view, () -> params);
+    }
+
+    public void setRefresh(boolean refresh){
+        RefreshUtil.setRefreshing(refresh);
     }
 
     public LayoutManagerUtil getLL(){
@@ -61,20 +69,30 @@ public abstract class BaseFragment extends FUtil {
         return LayoutManagerUtil.get2(getActivity(), spanCount);
     }
 
-    protected  <T> EasyRVAdapter rvBindData(RecyclerView rv, List<T> list, int cell, RecyclerViewUtil.onBindData data){
+    protected  <T> AddMoreUtil adapter(RecyclerView rv, List<T> list, RecyclerViewUtil.onBindData data,
+                                                        RecyclerViewUtil.SetMultiCellView cellView, int...cell){
         RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil();
-        recyclerViewUtil.initRV(getActivity(), rv, list, R.layout.recyclerview_cell, data::bind);
+        recyclerViewUtil.initRV(getActivity(), rv, list, data, cellView, cell);
+        return new AddMoreUtil(rv, list);
+    }
+
+    protected  <T, M extends RecyclerView.LayoutManager> EasyRVAdapter adapter(RecyclerView rv, List<T> list, RecyclerView.ItemDecoration decoration, M manager, RecyclerViewUtil.onBindData data, int...cellLayoutId){
+        RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil();
+        recyclerViewUtil.initRV(getActivity(), rv, list, decoration, manager, data, cellLayoutId);
+
+
+
+
         return recyclerViewUtil.getAdapter();
     }
 
-    protected  <T, M extends RecyclerView.LayoutManager> EasyRVAdapter rvBindData(RecyclerView rv, List<T> list, int cellLayoutId, RecyclerView.ItemDecoration decoration, M manager, RecyclerViewUtil.onBindData data){
-        RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil();
-        recyclerViewUtil.initRV(getActivity(), rv, list, cellLayoutId, decoration, manager, data);
-        return recyclerViewUtil.getAdapter();
-    }
+    public static <T> void log1(T t){
+        if(t instanceof String){
+            Log.d("TAG1", (String) t);
+        }else {
+            Log.d("TAG1", t+"");
+        }
 
-    public static void log1(String str){
-        Log.d("TAG1", str);
     }
 
     public static void log2(String str){

@@ -22,7 +22,7 @@ import asus.model.base.thread.RxJava;
 /**
  * Created by asus on 2016/7/21.
  */
-public abstract class FUtil extends FragmentSubject{
+public abstract class FUtil extends FragmentSubject implements EnumInterface{
 
     public static final int VIEWGROUP_MATCH = ViewGroup.LayoutParams.MATCH_PARENT;
     public static final int VIEWGROUP_WRAP = ViewGroup.LayoutParams.WRAP_CONTENT;

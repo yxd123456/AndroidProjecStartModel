@@ -24,8 +24,9 @@ import rx.Subscriber;
 public class MainActivity extends AUtil {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static int BACKFLAG = 1;
-
+    enum BACKFLAG{
+        NEED_TO, MAIN_FRAGEMNT, SECOND_FRAGMENT;
+    }
     public MainFragment mf = new MainFragment();
     public FragmentUtils fragmentUtils;
     public DrawerLayout drawerLayout;
@@ -55,9 +56,12 @@ public class MainActivity extends AUtil {
     public void onBackPressed() {
         super.onBackPressed();
         getSupportFragmentManager().popBackStack();//将最上层Fragment弹出回退栈
-        switch (BACKFLAG) {//根据回退标志来决定返回到哪个Fragment
-            case 1:
+        switch (BACKFLAG.NEED_TO) {//根据回退标志来决定返回到哪个Fragment
+            case MAIN_FRAGEMNT:
                 fragmentUtils.switchFragment(mf);
+                break;
+            case SECOND_FRAGMENT:
+
                 break;
         }
         invertVisible(rgBottom);//重新显示底部切换栏

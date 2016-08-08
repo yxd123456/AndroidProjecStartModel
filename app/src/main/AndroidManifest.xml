@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.context.WebActivity">
+        <activity android:name=".base.context.WebActivity"
+            android:screenOrientation="landscape">
 
         </activity>
     </application>

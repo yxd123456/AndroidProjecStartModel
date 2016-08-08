@@ -6,6 +6,7 @@ import android.widget.TextView;
 import asus.model.R;
 import asus.model.base.context.BaseFragment;
 import asus.model.utils.JniUtil;
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -13,13 +14,18 @@ import butterknife.InjectView;
  */
 public class MainFragment extends BaseFragment {
 
-    @InjectView(R.id.tv_hello_world)
-    public TextView tvHelloWorld;
+
+    @InjectView(R.id.tv1)
+    TextView tv1;
+    @InjectView(R.id.tv2)
+    TextView tv2;
+    @InjectView(R.id.tv3)
+    TextView tv3;
 
     @Override
     protected void onCreateView(View v) {
-        tvHelloWorld.setText(JniUtil.getStringFromC());
-        //tvHelloWorld.setText(JniUtil.getStringFromC2());
+        tv2.setText(JniUtil.getStringFromC());
+        tv3.setText(JniUtil.getStringFromC2());
     }
 
     @Override

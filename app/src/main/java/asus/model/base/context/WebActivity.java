@@ -9,9 +9,14 @@
  import org.apache.cordova.engine.SystemWebView;
  import org.apache.cordova.engine.SystemWebViewEngine;
 
+ import java.io.IOException;
+ import java.net.ServerSocket;
+ import java.net.Socket;
+
  import asus.model.R;
 
  public class WebActivity extends CordovaActivity {
+
 
      /** Called when the activity is first created. */
      @Override
@@ -21,7 +26,8 @@
          super.init();
          // Load your application
          // launchUrl = "file:///android_asset/www/index.html"
-         launchUrl = "file:///android_asset/www/index.html";
+
+         launchUrl = "file:///android_asset/jstests/index.html";
          loadUrl(launchUrl);
      }
      @Override

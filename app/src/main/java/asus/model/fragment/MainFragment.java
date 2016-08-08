@@ -11,6 +11,7 @@ import butterknife.InjectView;
 
 /**
  * Created by asus on 2016/7/25.
+ * 改造最强代码模板
  */
 public class MainFragment extends BaseFragment {
 

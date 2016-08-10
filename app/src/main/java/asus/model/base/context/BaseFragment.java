@@ -1,7 +1,10 @@
 package asus.model.base.context;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -115,5 +118,7 @@ public abstract class BaseFragment extends FUtil {
         Log.d(NULL, "空指针测试："+(t == null));
     }
 
-
+    public <T extends FragmentActivity> void startActivity(Context context, Class<T> aClass){
+        context.startActivity(new Intent(context, aClass));
+    }
 }
